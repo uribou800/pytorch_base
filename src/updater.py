@@ -10,6 +10,9 @@ class Updater:
         self.criterion = nn.MSELoss()
 
         # 今回のタスクで使用
+        # モデルの入力は0~1の値なので和，差，積はそれぞれ0~2, -1~1, 0~1の値となる
+        # ネットワークの出力はsigmoidなので0~1なので和と差の範囲をカバーできない
+        # モデルの出力に以下の定数をかけたり足したりすることでモデルの出力と答えのカバー範囲を揃える．
         self.mul_constant = torch.Tensor([2, 2, 1])
         self.sum_constant = torch.Tensor([0, -1, 0])
 
